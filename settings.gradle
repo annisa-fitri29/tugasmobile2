@@ -1,0 +1,2 @@
+rootProject.name = "CrudRoom"
+include ':app'
