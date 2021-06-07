@@ -3,6 +3,7 @@ package id.ac.unhas.crudroom.fragments.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import id.ac.unhas.crudroom.R
 import id.ac.unhas.crudroom.data.User
@@ -30,6 +31,11 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.lastname.text = currentItem.lastName
         holder.itemView.age.text = "(${currentItem.age.toString()})"
         holder.itemView.email.text = currentItem.email
+
+        holder.itemView.rowLayout.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     fun setData(user: List<User>){
