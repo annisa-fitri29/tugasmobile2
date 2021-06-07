@@ -1,6 +1,8 @@
 package id.ac.unhas.crudroom.fragments.update
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -8,13 +10,18 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import id.ac.unhas.crudroom.R
 import id.ac.unhas.crudroom.data.User
 import id.ac.unhas.crudroom.data.UserViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.coroutines.launch
 
 
 class UpdateFragment : Fragment() {
@@ -52,13 +59,16 @@ class UpdateFragment : Fragment() {
         val email = update_email.text.toString()
 
         if(inputCheck(firstName, lastName, update_age.text)){
-            //Create User Object
-            val user = User(args.currentUser.id, firstName, lastName, Integer.parseInt(age.toString()), email)
-            //Update Data to database
-            mUserViewModel.updateUser(user)
-            Toast.makeText(requireContext(), "Successfully updated", Toast.LENGTH_SHORT).show()
-            //Navigate Back
-            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            lifecycleScope.launch{
+                //Create User Object
+                val user = User(args.currentUser.id, getBitmap(), firstName, lastName, Integer.parseInt(age.toString()), email)
+                //Update Data to database
+                mUserViewModel.updateUser(user)
+                Toast.makeText(requireContext(), "Successfully updated", Toast.LENGTH_SHORT).show()
+                //Navigate Back
+                findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            }
+
 
         }else{
             Toast.makeText(requireContext(), "Failed to update, please check again", Toast.LENGTH_SHORT).show()
@@ -97,4 +107,13 @@ class UpdateFragment : Fragment() {
         builder.create().show()
     }
 
+    private suspend fun getBitmap(): Bitmap {
+        val loading = ImageLoader(requireContext())
+        val request = ImageRequest.Builder(requireContext())
+            .data("https://i.postimg.cc/4d5H15Nt/front-before.png")
+            .build()
+
+        val result = (loading.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
+    }
 }

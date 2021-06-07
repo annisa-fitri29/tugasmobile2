@@ -1,5 +1,6 @@
 package id.ac.unhas.crudroom.data
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +11,7 @@ import kotlinx.android.parcel.Parcelize
 data class User (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    val profilePhoto: Bitmap?,
     val firstName: String,
     val lastName: String,
     val age: Int,

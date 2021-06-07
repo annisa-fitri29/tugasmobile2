@@ -5,7 +5,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="35dp"
+    android:layout_marginStart="35dp"
+    android:layout_marginEnd="35dp"
+    android:layout_marginTop="30dp"
     android:id="@+id/rowLayout"
     app:cardBackgroundColor="#05B8CC"
     app:cardCornerRadius="17dp"
@@ -13,20 +15,18 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="17dp">
 
-        <TextView
-            android:id="@+id/id_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="40sp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars"/>
 
         <TextView
             android:id="@+id/firstname"
@@ -37,7 +37,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            card_view:layout_constraintStart_toEndOf="@+id/id_view"
+            card_view:layout_constraintStart_toEndOf="@+id/imageView"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -73,7 +73,7 @@
             android:textSize="15sp"
             android:textColor="@color/white"
             android:text="TextView"
-            card_view:layout_constraintStart_toEndOf="@+id/id_view"
+            card_view:layout_constraintStart_toEndOf="@+id/imageView"
             card_view:layout_constraintTop_toBottomOf="@+id/firstname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
